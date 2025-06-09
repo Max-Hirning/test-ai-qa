@@ -30,7 +30,9 @@ const updateTodo = async (
 const createTodo = async (payload: ICreateTodoRequest): Promise<string> => {
   await api.post('/todos', payload);
 
-  return 'Todo was created';
+  throw new Error("Some error");
+
+  // return 'Todo was created';
 };
 
 export const todosApi = {

@@ -1,0 +1,28 @@
+name: Run Testim E2E on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-testimio-cli:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Testim CLI
+        run: npm install -g @testim/testim-cli
+
+      - name: Run Testim Tests
+        run: |
+          testim --token ${{ secrets.TESTIM_TOKEN }} \
+                 --project "rn984g3Zv73AatZL7f7p" \
+                 --grid "Testim-Grid" \
+                 --mode "extension" \
+                 --branch "master"

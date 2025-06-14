@@ -25,4 +25,4 @@ jobs:
                  --project "rn984g3Zv73AatZL7f7p" \
                  --grid "Testim-Grid" \
                  --mode "extension" \
-                 --branch ${{ github.head_ref }}
+                 --branch "master"

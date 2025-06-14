@@ -1,0 +1,27 @@
+name: Run Testim Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  testim:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Testim CLI
+        run: npm install -g @testim/testim-cli
+
+      - name: Run Testim CLI Tests
+        run: |
+          testim --token ${{ secrets.TESTIM_TOKEN }} \
+                 --project "rn984g3Zv73AatZL7f7p" \
+                 --grid "Testim-Grid" \
+                 --report-file testim-report.xml \
+                 --report-format junit \
+                 --label "PR Test" \
+                 --branch ${{ github.head_ref }}

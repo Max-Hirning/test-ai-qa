@@ -19,7 +19,7 @@ export const Todo: FC<IProps> = ({ todo }) => {
     <li
       key={todo.id}
       className={cn(
-        'flex cursor-pointer gap-2 first-letter:uppercase text-red-600',
+        'flex cursor-pointer gap-2 first-letter:uppercase',
         todo.completed && 'line-through',
         isPending && 'cursor-progress',
       )}

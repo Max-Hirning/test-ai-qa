@@ -1,3 +1,4 @@
+import { todos } from 'shared/constants';
 import { api } from 'shared/lib';
 import {
   ICreateTodoRequest,
@@ -10,19 +11,32 @@ const getTodos = async (
   params?: IGetTodosRequest,
   signal?: AbortSignal,
 ): Promise<ITodoResponse[]> => {
-  const response = await api.get('/todos', {
+  await api.get('/todos', {
     params,
     signal,
   });
 
-  return response.data;
+  return todos;
 };
 
 const updateTodo = async (
   todoId: string,
   payload: Partial<IUpdateTodoRequest>,
 ): Promise<string> => {
-  await api.put(`/todos/${todoId}`, payload);
+  try {
+    await api.put(`/todos/${todoId}`, payload);
+  } catch (error) {
+    console.error(error); // eslint-disable-line no-console
+  }
+
+  const foundTodoId = todos.findIndex(({ id }) => id.toString() === todoId);
+
+  if (foundTodoId >= 0) {
+    todos[foundTodoId] = {
+      ...todos[foundTodoId],
+      ...payload,
+    };
+  }
 
   return 'Todo was updated';
 };
@@ -30,9 +44,9 @@ const updateTodo = async (
 const createTodo = async (payload: ICreateTodoRequest): Promise<string> => {
   await api.post('/todos', payload);
 
-  throw new Error("Some error");
+  todos.push(payload);
 
-  // return 'Todo was created';
+  return 'Todo was created';
 };
 
 export const todosApi = {

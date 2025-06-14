@@ -32,7 +32,7 @@ export const useUpdateTodo = () => {
 export const useCreateTodo = () => {
   return useMutation({
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_TODOS] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_TODOS] });
     },
     mutationFn: (payload: ICreateTodoRequest) => todosApi.createTodo(payload),
   });

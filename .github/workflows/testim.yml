@@ -1,4 +1,4 @@
-name: Run Testim Tests
+name: Run Testim E2E on PR
 
 on:
   pull_request:
@@ -6,22 +6,23 @@ on:
       - main
 
 jobs:
-  testim:
+  run-testimio-cli:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts'
 
       - name: Install Testim CLI
         run: npm install -g @testim/testim-cli
 
-      - name: Run Testim CLI Tests
+      - name: Run Testim Tests
         run: |
           testim --token ${{ secrets.TESTIM_TOKEN }} \
                  --project "rn984g3Zv73AatZL7f7p" \
                  --grid "Testim-Grid" \
-                 --report-file testim-report.xml \
-                 --report-format junit \
-                 --label "PR Test" \
+                 --mode "extension" \
                  --branch ${{ github.head_ref }}

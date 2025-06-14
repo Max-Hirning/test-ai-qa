@@ -30,7 +30,7 @@ export const CreateTodoForm = () => {
       {
         onSuccess: () => {
           form.reset();
-          setShow(true);
+          setShow(false);
         },
       },
     );

@@ -25,4 +25,5 @@ jobs:
                  --project "rn984g3Zv73AatZL7f7p" \
                  --grid "Testim-Grid" \
                  --mode "extension" \
-                 --branch "master"
+                 --branch "master" \
+                 --base-url "https://test-ai-qa-git-test-maxs-projects-f48c7902.vercel.app/"
